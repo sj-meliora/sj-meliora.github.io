@@ -1,0 +1,15 @@
+# Hugo
+public/
+resources/
+.hugo_build.lock
+
+# Hugo deployment
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+desktop.ini

@@ -1,0 +1,67 @@
+baseURL = "https://sj-meliora.github.io/"
+languageCode = "ko-kr"
+title = "sj-meliora"
+theme = "PaperMod"
+
+# 한국어 콘텐츠를 위한 기본값
+defaultContentLanguage = "ko"
+hasCJKLanguage = true
+
+# Hugo 빌드 설정
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[params]
+  env = "production"
+  description = "개인 큐레이션 블로그 — 더 나은 것을 향하여"
+  defaultTheme = "auto"  # auto / dark / light
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+
+[params.homeInfoParams]
+  Title = "sj-meliora"
+  Content = "Ad Meliora — 더 나은 것을 향하여. 매일 큐레이션과 가끔의 노트."
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/sj-meliora"
+
+# 메뉴
+[[menu.main]]
+  identifier = "curation"
+  name = "Curation"
+  url = "/curation/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "note"
+  name = "Note"
+  url = "/note/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 30
+
+# Markdown 렌더링 옵션
+[markup]
+  [markup.highlight]
+    style = "github-dark"
+    lineNos = false
+    codeFences = true
+    guessSyntax = true
+  [markup.goldmark.renderer]
+    unsafe = true  # HTML 직접 작성 허용 (필요시)
+
+# 출력 형식 — 검색 기능을 위한 JSON 인덱스
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
