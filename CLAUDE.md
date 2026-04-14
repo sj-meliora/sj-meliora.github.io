@@ -92,6 +92,12 @@ draft: false
 ---
 ```
 
+`date` 필드는 **글을 생성하는 시점의 현재 한국 시간(KST, `+09:00`)**으로 채운다. 과거·미래 날짜를 임의로 넣지 않는다. Claude Code가 front matter를 생성할 때는 다음 명령으로 실제 현재 KST를 조회해 반영한다 (Windows/git-bash 환경에서 `TZ=Asia/Seoul date`는 TZ 변수를 제대로 적용하지 못해 UTC를 반환하므로 PowerShell 경유가 안전하다):
+
+```bash
+powershell -c "[System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow, 'Korea Standard Time').ToString('yyyy-MM-ddTHH:mm:ss+09:00')"
+```
+
 자동 파이프라인이 생성하는 큐레이션 글은 원본 출처 목록을 담는 `source` 블록을 추가로 포함한다(정확한 스키마는 파이프라인 구축 시 정의).
 
 ---
