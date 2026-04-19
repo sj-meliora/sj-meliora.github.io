@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="540" viewBox="0 0 680 540" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<style><![CDATA[
+/* Light mode (default) */
+.q-amber-fill { fill: #FAEEDA; }
+.q-amber-stroke { stroke: #BA7517; }
+.q-amber-title { fill: #854F0B; }
+.q-amber-sub { fill: #BA7517; }
+
+.q-teal-fill { fill: #E1F5EE; }
+.q-teal-stroke { stroke: #0F6E56; }
+.q-teal-title { fill: #0F6E56; }
+.q-teal-sub { fill: #1D9E75; }
+
+.q-gray-fill { fill: #F1EFE8; }
+.q-gray-stroke { stroke: #888780; }
+.q-gray-title { fill: #5F5E5A; }
+.q-gray-sub { fill: #888780; }
+
+.q-blue-fill { fill: #E6F1FB; }
+.q-blue-stroke { stroke: #185FA5; }
+.q-blue-title { fill: #0C447C; }
+.q-blue-sub { fill: #185FA5; }
+
+.dot-amber, .label-amber { fill: #712B13; }
+.dot-teal, .label-teal { fill: #085041; }
+.dot-blue, .label-blue { fill: #0C447C; }
+
+.axis { stroke: #5F5E5A; }
+.axis-label, .caption { fill: #5F5E5A; }
+
+/* Dark mode via OS setting */
+@media (prefers-color-scheme: dark) {
+  .q-amber-fill { fill: #633806; }
+  .q-amber-stroke { stroke: #FAC775; }
+  .q-amber-title { fill: #FAEEDA; }
+  .q-amber-sub { fill: #FAC775; }
+
+  .q-teal-fill { fill: #085041; }
+  .q-teal-stroke { stroke: #9FE1CB; }
+  .q-teal-title { fill: #E1F5EE; }
+  .q-teal-sub { fill: #9FE1CB; }
+
+  .q-gray-fill { fill: #2C2C2A; }
+  .q-gray-stroke { stroke: #B4B2A9; }
+  .q-gray-title { fill: #D3D1C7; }
+  .q-gray-sub { fill: #B4B2A9; }
+
+  .q-blue-fill { fill: #0C447C; }
+  .q-blue-stroke { stroke: #B5D4F4; }
+  .q-blue-title { fill: #E6F1FB; }
+  .q-blue-sub { fill: #B5D4F4; }
+
+  .dot-amber, .label-amber { fill: #F5C4B3; }
+  .dot-teal, .label-teal { fill: #9FE1CB; }
+  .dot-blue, .label-blue { fill: #B5D4F4; }
+
+  .axis { stroke: #B4B2A9; }
+  .axis-label, .caption { fill: #B4B2A9; }
+}
+
+/* Dark mode via .dark class toggle (takes precedence when set) */
+.dark .q-amber-fill { fill: #633806; }
+.dark .q-amber-stroke { stroke: #FAC775; }
+.dark .q-amber-title { fill: #FAEEDA; }
+.dark .q-amber-sub { fill: #FAC775; }
+
+.dark .q-teal-fill { fill: #085041; }
+.dark .q-teal-stroke { stroke: #9FE1CB; }
+.dark .q-teal-title { fill: #E1F5EE; }
+.dark .q-teal-sub { fill: #9FE1CB; }
+
+.dark .q-gray-fill { fill: #2C2C2A; }
+.dark .q-gray-stroke { stroke: #B4B2A9; }
+.dark .q-gray-title { fill: #D3D1C7; }
+.dark .q-gray-sub { fill: #B4B2A9; }
+
+.dark .q-blue-fill { fill: #0C447C; }
+.dark .q-blue-stroke { stroke: #B5D4F4; }
+.dark .q-blue-title { fill: #E6F1FB; }
+.dark .q-blue-sub { fill: #B5D4F4; }
+
+.dark .dot-amber, .dark .label-amber { fill: #F5C4B3; }
+.dark .dot-teal, .dark .label-teal { fill: #9FE1CB; }
+.dark .dot-blue, .dark .label-blue { fill: #B5D4F4; }
+
+.dark .axis { stroke: #B4B2A9; }
+.dark .axis-label, .dark .caption { fill: #B4B2A9; }
+]]></style>
+</defs>
+
+<rect class="q-amber-fill q-amber-stroke" x="100" y="60" width="240" height="180" stroke-width="0.5" rx="4"/>
+<rect class="q-teal-fill q-teal-stroke" x="340" y="60" width="240" height="180" stroke-width="0.5" rx="4"/>
+<rect class="q-gray-fill q-gray-stroke" x="100" y="240" width="240" height="180" stroke-width="0.5" rx="4" opacity="0.5"/>
+<rect class="q-blue-fill q-blue-stroke" x="340" y="240" width="240" height="180" stroke-width="0.5" rx="4"/>
+
+<text class="q-amber-title" x="120" y="84" font-size="14" font-weight="500">Copilot</text>
+<text class="q-amber-sub" x="120" y="102" font-size="12">High oversight, low autonomy</text>
+<text class="q-amber-sub" x="120" y="120" font-size="12">매 결정마다 승인</text>
+
+<text class="q-teal-title" x="360" y="84" font-size="14" font-weight="500">Guided autonomous</text>
+<text class="q-teal-sub" x="360" y="102" font-size="12">High oversight, high autonomy</text>
+<text class="q-teal-sub" x="360" y="120" font-size="12">자율 실행, 중요 결정에 개입</text>
+
+<text class="q-gray-title" x="120" y="264" font-size="14" font-weight="500">Rarely used</text>
+<text class="q-gray-sub" x="120" y="282" font-size="12">Low oversight, low autonomy</text>
+<text class="q-gray-sub" x="120" y="300" font-size="12">딱히 쓸 일 없음</text>
+
+<text class="q-blue-title" x="360" y="264" font-size="14" font-weight="500">Full autonomous</text>
+<text class="q-blue-sub" x="360" y="282" font-size="12">Low oversight, high autonomy</text>
+<text class="q-blue-sub" x="360" y="300" font-size="12">사후 감사만</text>
+
+<circle class="dot-amber" cx="190" cy="180" r="5"/>
+<text class="label-amber" x="204" y="184" font-size="12">배포</text>
+
+<circle class="dot-teal" cx="430" cy="170" r="5"/>
+<text class="label-teal" x="444" y="174" font-size="12">코드 수정</text>
+
+<circle class="dot-blue" cx="500" cy="370" r="5"/>
+<text class="label-blue" x="514" y="374" font-size="12">코드 읽기</text>
+
+<line class="axis" x1="100" y1="440" x2="580" y2="440" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="axis-label" x="340" y="462" font-size="12" text-anchor="middle">Autonomy →</text>
+
+<line class="axis" x1="80" y1="420" x2="80" y2="60" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="axis-label" x="60" y="240" font-size="12" text-anchor="middle" transform="rotate(-90 60 240)">Oversight →</text>
+
+<text class="caption" x="340" y="500" font-size="12" text-anchor="middle">같은 Claude Code 라도 task 에 따라 좌표가 다르다</text>
+</svg>
