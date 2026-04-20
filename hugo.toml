@@ -35,15 +35,15 @@ buildExpired = false
 
 # 메뉴
 [[menu.main]]
-  identifier = "curation"
-  name = "Curation"
-  url = "/curation/"
-  weight = 10
-
-[[menu.main]]
   identifier = "note"
   name = "Note"
   url = "/note/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "curation"
+  name = "Curation"
+  url = "/curation/"
   weight = 20
 
 [[menu.main]]
