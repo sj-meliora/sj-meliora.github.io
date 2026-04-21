@@ -29,10 +29,6 @@ buildExpired = false
   Title = "sj-meliora"
   Content = "Ad Meliora — 더 나은 것을 향하여. 매일 큐레이션과 가끔의 노트."
 
-[[params.socialIcons]]
-  name = "github"
-  url = "https://github.com/sj-meliora"
-
 # 메뉴
 [[menu.main]]
   identifier = "note"

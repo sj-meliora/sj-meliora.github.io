@@ -1,0 +1,12 @@
+.first-entry .entry-header h1 {
+    font-size: 40px;
+}
+
+.first-entry {
+    min-height: auto;
+    justify-content: flex-start;
+}
+
+.page-header {
+    margin-bottom: 40px;
+}
