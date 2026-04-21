@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="800" height="460" role="img" aria-labelledby="title desc">
+  <title id="title">Text search vs LSP query comparison</title>
+  <desc id="desc">Side-by-side comparison of grep-based text search and LSP symbol query when finding call sites of a function.</desc>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #1f2328;
+      --fg-soft: #57606a;
+      --panel-bg: #f6f8fa;
+      --panel-bd: #d0d7de;
+      --bad: #cf222e;
+      --bad-bg: #ffebe9;
+      --good: #1a7f37;
+      --good-bg: #dafbe1;
+      --code-bg: #eaeef2;
+      --arrow: #6e7781;
+      --noise: #bf8700;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1d1e20;
+        --fg: #e6edf3;
+        --fg-soft: #8d96a0;
+        --panel-bg: #161b22;
+        --panel-bd: #30363d;
+        --bad: #ff7b72;
+        --bad-bg: #3a1a1a;
+        --good: #3fb950;
+        --good-bg: #0f2e17;
+        --code-bg: #21262d;
+        --arrow: #8d96a0;
+        --noise: #d29922;
+      }
+    }
+    .bg { fill: var(--bg); }
+    .panel { fill: var(--panel-bg); stroke: var(--panel-bd); stroke-width: 1.5; }
+    .panel-bad { fill: var(--bad-bg); stroke: var(--bad); stroke-width: 1.5; }
+    .panel-good { fill: var(--good-bg); stroke: var(--good); stroke-width: 1.5; }
+    .header-bad { fill: var(--bad); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-weight: 700; font-size: 16px; }
+    .header-good { fill: var(--good); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-weight: 700; font-size: 16px; }
+    .title-text { fill: var(--fg); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-weight: 700; font-size: 14px; }
+    .label { fill: var(--fg); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-size: 13px; }
+    .sublabel { fill: var(--fg-soft); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-size: 11px; }
+    .code { fill: var(--fg); font-family: ui-monospace, "SF Mono", monospace; font-size: 12px; }
+    .code-bg-rect { fill: var(--code-bg); }
+    .noise-text { fill: var(--noise); font-family: ui-monospace, "SF Mono", monospace; font-size: 11px; font-style: italic; }
+    .arrow { stroke: var(--arrow); stroke-width: 1.5; fill: none; marker-end: url(#arrow2); }
+    .match-bad { fill: var(--bad); font-family: ui-monospace, "SF Mono", monospace; font-size: 11px; }
+    .match-good { fill: var(--good); font-family: ui-monospace, "SF Mono", monospace; font-size: 11px; }
+  </style>
+
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="var(--arrow)" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="800" height="460" />
+
+  <!-- Common task at top -->
+  <text class="title-text" x="400" y="30" text-anchor="middle">작업: `OrderProcessor::process()`의 모든 call site 찾기</text>
+
+  <!-- Left panel: text search -->
+  <rect class="panel-bad" x="30" y="55" width="360" height="380" rx="6" />
+  <text class="header-bad" x="210" y="82" text-anchor="middle">텍스트 검색 (grep)</text>
+
+  <!-- Query -->
+  <rect class="code-bg-rect" x="50" y="95" width="320" height="26" rx="4" />
+  <text class="code" x="60" y="113">$ grep -r "process" src/</text>
+
+  <!-- Result list -->
+  <text class="label" x="50" y="145">결과: 파일 수백 개 순차 스캔</text>
+
+  <text class="match-good" x="60" y="167">✓ OrderProcessor.cpp:42   process() 정의</text>
+  <text class="match-good" x="60" y="184">✓ Main.cpp:18            processor.process()</text>
+  <text class="noise-text" x="60" y="201">? Logger.cpp:77          // process log entry</text>
+  <text class="noise-text" x="60" y="218">? Config.h:23            /* preprocess macro */</text>
+  <text class="noise-text" x="60" y="235">? Utils.cpp:104          int process_count = 0;</text>
+  <text class="noise-text" x="60" y="252">? Worker.cpp:66          postprocess(data);</text>
+  <text class="match-good" x="60" y="269">✓ Queue.cpp:91           p-&gt;process()</text>
+  <text class="noise-text" x="60" y="286">? README.md:12           running the process</text>
+
+  <!-- Summary -->
+  <line x1="50" y1="305" x2="370" y2="305" stroke="var(--panel-bd)" stroke-width="1" stroke-dasharray="3 3" />
+
+  <text class="label" x="50" y="326" font-weight="600">문제:</text>
+  <text class="sublabel" x="50" y="346">• 주석, 매크로, 변수명, 다른 함수까지 match</text>
+  <text class="sublabel" x="50" y="363">• 파일 내용을 context window에 누적</text>
+  <text class="sublabel" x="50" y="380">• Agent가 결과를 걸러내려 재탐색 반복</text>
+
+  <text class="match-bad" x="50" y="415" font-weight="700">→ context 빠르게 소모, 신호 대 잡음비 낮음</text>
+
+  <!-- Right panel: LSP query -->
+  <rect class="panel-good" x="410" y="55" width="360" height="380" rx="6" />
+  <text class="header-good" x="590" y="82" text-anchor="middle">LSP 질의</text>
+
+  <!-- Query -->
+  <rect class="code-bg-rect" x="430" y="95" width="320" height="26" rx="4" />
+  <text class="code" x="440" y="113">findReferences("OrderProcessor::process")</text>
+
+  <!-- Result list -->
+  <text class="label" x="430" y="145">결과: 미리 인덱싱된 symbol graph 조회</text>
+
+  <text class="match-good" x="440" y="167">✓ Main.cpp:18            call site</text>
+  <text class="match-good" x="440" y="184">✓ Queue.cpp:91           call site</text>
+  <text class="match-good" x="440" y="201">✓ Scheduler.cpp:33       call site</text>
+  <text class="match-good" x="440" y="218">✓ RetryHandler.cpp:57    call site</text>
+
+  <text class="sublabel" x="440" y="248">(정확한 4개 — 오버로드/네임스페이스</text>
+  <text class="sublabel" x="440" y="265">구분됨, 주석·문자열 자동 제외)</text>
+
+  <!-- Summary -->
+  <line x1="430" y1="305" x2="750" y2="305" stroke="var(--panel-bd)" stroke-width="1" stroke-dasharray="3 3" />
+
+  <text class="label" x="430" y="326" font-weight="600">이점:</text>
+  <text class="sublabel" x="430" y="346">• Symbol 의미를 아는 정밀 match</text>
+  <text class="sublabel" x="430" y="363">• 결과만 반환, 파일 내용 안 쌓임</text>
+  <text class="sublabel" x="430" y="380">• 한 번의 질의로 확정</text>
+
+  <text class="match-good" x="430" y="415" font-weight="700">→ context 효율, 탐색 한 번에 종결</text>
+</svg>

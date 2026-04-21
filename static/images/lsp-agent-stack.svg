@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" width="720" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">LSP-based agent stack for large C++ codebases</title>
+  <desc id="desc">Layered diagram showing how an agent connects to a C++ codebase through Serena, clangd, and compile_commands.json.</desc>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #1f2328;
+      --fg-soft: #57606a;
+      --layer-bg: #f6f8fa;
+      --layer-bd: #d0d7de;
+      --accent: #0969da;
+      --accent-bg: #ddf4ff;
+      --arrow: #6e7781;
+      --highlight: #bc4c00;
+      --highlight-bg: #fff1e5;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1d1e20;
+        --fg: #e6edf3;
+        --fg-soft: #8d96a0;
+        --layer-bg: #161b22;
+        --layer-bd: #30363d;
+        --accent: #58a6ff;
+        --accent-bg: #0c2d6b;
+        --arrow: #8d96a0;
+        --highlight: #db8a4a;
+        --highlight-bg: #3d2a17;
+      }
+    }
+    .bg { fill: var(--bg); }
+    .layer { fill: var(--layer-bg); stroke: var(--layer-bd); stroke-width: 1.5; }
+    .layer-accent { fill: var(--accent-bg); stroke: var(--accent); stroke-width: 1.5; }
+    .layer-highlight { fill: var(--highlight-bg); stroke: var(--highlight); stroke-width: 1.5; }
+    .label { fill: var(--fg); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-weight: 600; font-size: 15px; }
+    .sublabel { fill: var(--fg-soft); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-size: 12px; }
+    .arrow { stroke: var(--arrow); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .arrow-label { fill: var(--fg-soft); font-family: ui-monospace, "SF Mono", monospace; font-size: 11px; }
+    .title-text { fill: var(--fg); font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif; font-weight: 700; font-size: 14px; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="var(--arrow)" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="720" height="560" />
+
+  <!-- Title -->
+  <text class="title-text" x="360" y="30" text-anchor="middle">대규모 C++ 코드베이스를 위한 LSP 기반 agent 스택</text>
+
+  <!-- Layer 1: Agent -->
+  <rect class="layer" x="160" y="60" width="400" height="60" rx="6" />
+  <text class="label" x="360" y="88" text-anchor="middle">Agent</text>
+  <text class="sublabel" x="360" y="106" text-anchor="middle">Claude Code, Copilot CLI 등</text>
+
+  <!-- Arrow 1: Agent -> Serena -->
+  <line class="arrow" x1="360" y1="120" x2="360" y2="155" />
+  <text class="arrow-label" x="372" y="142">MCP tool call</text>
+
+  <!-- Layer 2: Serena -->
+  <rect class="layer-accent" x="160" y="160" width="400" height="70" rx="6" />
+  <text class="label" x="360" y="188" text-anchor="middle">Serena</text>
+  <text class="sublabel" x="360" y="208" text-anchor="middle">LSP + agent-friendly 추상화 (symbol 단위 tool)</text>
+
+  <!-- Arrow 2: Serena -> clangd -->
+  <line class="arrow" x1="360" y1="230" x2="360" y2="265" />
+  <text class="arrow-label" x="372" y="252">LSP request</text>
+
+  <!-- Layer 3: clangd -->
+  <rect class="layer" x="160" y="270" width="400" height="60" rx="6" />
+  <text class="label" x="360" y="298" text-anchor="middle">clangd</text>
+  <text class="sublabel" x="360" y="316" text-anchor="middle">Language Server (C/C++)</text>
+
+  <!-- Arrow 3: clangd -> compile_commands.json -->
+  <line class="arrow" x1="360" y1="330" x2="360" y2="365" />
+  <text class="arrow-label" x="372" y="352">참조</text>
+
+  <!-- Layer 4: compile_commands.json (highlighted) -->
+  <rect class="layer-highlight" x="160" y="370" width="400" height="70" rx="6" />
+  <text class="label" x="360" y="398" text-anchor="middle">compile_commands.json</text>
+  <text class="sublabel" x="360" y="418" text-anchor="middle">빌드 정보 (파일별 컴파일 플래그, include 경로, define)</text>
+
+  <!-- Arrow 4: compile_commands.json -> codebase -->
+  <line class="arrow" x1="360" y1="440" x2="360" y2="475" />
+
+  <!-- Layer 5: Codebase -->
+  <rect class="layer" x="160" y="480" width="400" height="60" rx="6" />
+  <text class="label" x="360" y="508" text-anchor="middle">C++ 코드베이스</text>
+  <text class="sublabel" x="360" y="526" text-anchor="middle">300만 라인 + 매크로 헤비 + 빌드 variant</text>
+
+  <!-- Side annotation for highlighted layer -->
+  <text class="sublabel" x="570" y="395" fill="var(--highlight)" font-weight="600">← 여기가</text>
+  <text class="sublabel" x="570" y="412" fill="var(--highlight)" font-weight="600">   핵심 기반</text>
+</svg>

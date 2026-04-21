@@ -42,6 +42,8 @@ draft: false
 다 써버린다. 20파일짜리 프로젝트에선 이게 통하지만 2,000 파일짜리 monorepo에선
 금방 막힌다.
 
+![텍스트 검색 vs LSP 기반 탐색 비교](/images/text-search-vs-lsp.svg)
+
 ### 해법: LSP(Language Server Protocol) 통합
 
 LSP는 원래 IDE용으로 만들어진 프로토콜인데, 이게 agent에게 주는 가치가 예상보다
@@ -63,6 +65,8 @@ context window 효율에 큰 영향을 준다 — 잘못된 파일을 여러 번
 프로젝트 공식 문서에 따르면 서로 다른 agent들이 독립적으로 "이게 있어야
 제대로 일한다"고 보고한다. **symbol-aware navigation, cross-file refactor,
 monorepo dependency jump**가 근본적으로 달라진다는 것이 공통된 피드백이다.
+
+![LSP agent 스택 구조](/images/lsp-agent-stack.svg)
 
 ### 대규모 스토리지 F/W 맥락에서의 함의
 
