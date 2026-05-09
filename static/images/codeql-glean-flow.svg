@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" role="img" aria-labelledby="title desc">
+  <title id="title">CodeQL과 Glean의 처리 흐름 비교</title>
+  <desc id="desc">두 도구 모두 소스 코드를 추출해 데이터베이스에 저장하고, 그 위에 declarative 쿼리 언어로 질의하는 같은 모델을 따른다.</desc>
+
+  <style>
+    /* Light mode (default) */
+    .label-title  { font: 500 14px sans-serif; fill: #2C2C2A; }
+    .box-title    { font: 500 14px sans-serif; }
+    .box-sub      { font: 400 12px sans-serif; }
+
+    .gray-fill    { fill: #F1EFE8; stroke: #5F5E5A; }
+    .gray-title   { fill: #2C2C2A; }
+    .gray-sub     { fill: #5F5E5A; }
+
+    .purple-fill  { fill: #EEEDFE; stroke: #534AB7; }
+    .purple-title { fill: #26215C; }
+    .purple-sub   { fill: #534AB7; }
+
+    .teal-fill    { fill: #E1F5EE; stroke: #0F6E56; }
+    .teal-title   { fill: #04342C; }
+    .teal-sub     { fill: #0F6E56; }
+
+    .coral-fill   { fill: #FAECE7; stroke: #993C1D; }
+    .coral-title  { fill: #4A1B0C; }
+
+    .arr          { stroke: #5F5E5A; stroke-width: 1.5; fill: none; }
+
+    /* Dark mode — OS preference */
+    @media (prefers-color-scheme: dark) {
+      .label-title  { fill: #D3D1C7; }
+      .gray-fill    { fill: #444441; stroke: #B4B2A9; }
+      .gray-title   { fill: #F1EFE8; }
+      .gray-sub     { fill: #D3D1C7; }
+      .purple-fill  { fill: #3C3489; stroke: #AFA9EC; }
+      .purple-title { fill: #EEEDFE; }
+      .purple-sub   { fill: #CECBF6; }
+      .teal-fill    { fill: #085041; stroke: #5DCAA5; }
+      .teal-title   { fill: #E1F5EE; }
+      .teal-sub     { fill: #9FE1CB; }
+      .coral-fill   { fill: #712B13; stroke: #F0997B; }
+      .coral-title  { fill: #FAECE7; }
+      .arr          { stroke: #B4B2A9; }
+    }
+
+    /* Dark mode — toggle class override */
+    .dark .label-title  { fill: #D3D1C7; }
+    .dark .gray-fill    { fill: #444441; stroke: #B4B2A9; }
+    .dark .gray-title   { fill: #F1EFE8; }
+    .dark .gray-sub     { fill: #D3D1C7; }
+    .dark .purple-fill  { fill: #3C3489; stroke: #AFA9EC; }
+    .dark .purple-title { fill: #EEEDFE; }
+    .dark .purple-sub   { fill: #CECBF6; }
+    .dark .teal-fill    { fill: #085041; stroke: #5DCAA5; }
+    .dark .teal-title   { fill: #E1F5EE; }
+    .dark .teal-sub     { fill: #9FE1CB; }
+    .dark .coral-fill   { fill: #712B13; stroke: #F0997B; }
+    .dark .coral-title  { fill: #FAECE7; }
+    .dark .arr          { stroke: #B4B2A9; }
+  </style>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text class="label-title" x="170" y="40" text-anchor="middle">CodeQL</text>
+  <text class="label-title" x="510" y="40" text-anchor="middle">Glean</text>
+
+  <rect class="gray-fill" x="80" y="60" width="180" height="56" rx="8" stroke-width="0.5"/>
+  <text class="box-title gray-title" x="170" y="80" text-anchor="middle" dominant-baseline="central">소스 코드</text>
+  <text class="box-sub gray-sub" x="170" y="98" text-anchor="middle" dominant-baseline="central">C++ 빌드 입력</text>
+
+  <rect class="gray-fill" x="420" y="60" width="180" height="56" rx="8" stroke-width="0.5"/>
+  <text class="box-title gray-title" x="510" y="80" text-anchor="middle" dominant-baseline="central">소스 코드</text>
+  <text class="box-sub gray-sub" x="510" y="98" text-anchor="middle" dominant-baseline="central">C++ 빌드 입력</text>
+
+  <line class="arr" x1="170" y1="116" x2="170" y2="148" marker-end="url(#arrow)"/>
+  <line class="arr" x1="510" y1="116" x2="510" y2="148" marker-end="url(#arrow)"/>
+
+  <rect class="purple-fill" x="80" y="148" width="180" height="56" rx="8" stroke-width="0.5"/>
+  <text class="box-title purple-title" x="170" y="168" text-anchor="middle" dominant-baseline="central">Extractor</text>
+  <text class="box-sub purple-sub" x="170" y="186" text-anchor="middle" dominant-baseline="central">빌드 명령을 감싸 실행</text>
+
+  <rect class="purple-fill" x="420" y="148" width="180" height="56" rx="8" stroke-width="0.5"/>
+  <text class="box-title purple-title" x="510" y="168" text-anchor="middle" dominant-baseline="central">Clang 인덱서</text>
+  <text class="box-sub purple-sub" x="510" y="186" text-anchor="middle" dominant-baseline="central">compile_commands 입력</text>
+
+  <line class="arr" x1="170" y1="204" x2="170" y2="236" marker-end="url(#arrow)"/>
+  <line class="arr" x1="510" y1="204" x2="510" y2="236" marker-end="url(#arrow)"/>
+
+  <rect class="teal-fill" x="80" y="236" width="180" height="56" rx="8" stroke-width="0.5"/>
+  <text class="box-title teal-title" x="170" y="256" text-anchor="middle" dominant-baseline="central">CodeQL DB</text>
+  <text class="box-sub teal-sub" x="170" y="274" text-anchor="middle" dominant-baseline="central">관계형 데이터베이스</text>
+
+  <rect class="teal-fill" x="420" y="236" width="180" height="56" rx="8" stroke-width="0.5"/>
+  <text class="box-title teal-title" x="510" y="256" text-anchor="middle" dominant-baseline="central">Glean DB</text>
+  <text class="box-sub teal-sub" x="510" y="274" text-anchor="middle" dominant-baseline="central">RocksDB / LMDB facts</text>
+
+  <line class="arr" x1="170" y1="292" x2="170" y2="324" marker-end="url(#arrow)"/>
+  <line class="arr" x1="510" y1="292" x2="510" y2="324" marker-end="url(#arrow)"/>
+
+  <rect class="coral-fill" x="80" y="324" width="180" height="40" rx="8" stroke-width="0.5"/>
+  <text class="box-title coral-title" x="170" y="344" text-anchor="middle" dominant-baseline="central">QL 쿼리</text>
+
+  <rect class="coral-fill" x="420" y="324" width="180" height="40" rx="8" stroke-width="0.5"/>
+  <text class="box-title coral-title" x="510" y="344" text-anchor="middle" dominant-baseline="central">Angle 쿼리</text>
+</svg>
