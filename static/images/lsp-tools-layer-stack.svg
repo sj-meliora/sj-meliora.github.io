@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="720" height="480"
+     viewBox="0 0 720 480"
+     font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
+     role="img" aria-labelledby="title desc">
+  <title id="title">clangd 위에 세 도구가 얹는 layer 비교</title>
+  <desc id="desc">바닥에 clangd라는 공통 backend가 있고, 그 위에 clangd-query는 daemon 캐시 한 층, Serena는 심볼 추상화와 memory와 context mode를 얹은 두꺼운 층, agent-lsp는 심볼 추상화와 speculative execution과 phase enforcement와 blast radius를 얹은 두꺼운 층을 쌓는다.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style><![CDATA[
+      /* ── Light mode (default) ── */
+      .q-amber-fill   { fill:   #FAEEDA; }
+      .q-amber-stroke { stroke: #BA7517; }
+      .q-amber-title  { fill:   #854F0B; }
+      .q-amber-sub    { fill:   #BA7517; }
+
+      .q-teal-fill    { fill:   #E1F5EE; }
+      .q-teal-stroke  { stroke: #0F6E56; }
+      .q-teal-title   { fill:   #0F6E56; }
+      .q-teal-sub     { fill:   #1D9E75; }
+
+      .q-gray-fill    { fill:   #F1EFE8; }
+      .q-gray-stroke  { stroke: #888780; }
+      .q-gray-title   { fill:   #5F5E5A; }
+      .q-gray-sub     { fill:   #888780; }
+
+      .q-blue-fill    { fill:   #E6F1FB; }
+      .q-blue-stroke  { stroke: #185FA5; }
+      .q-blue-title   { fill:   #0C447C; }
+      .q-blue-sub     { fill:   #185FA5; }
+
+      .axis        { stroke: #5F5E5A; }
+      .axis-label, .caption { fill: #5F5E5A; }
+
+      /* ── Dark mode via OS preference ── */
+      @media (prefers-color-scheme: dark) {
+        .q-amber-fill   { fill:   #633806; }
+        .q-amber-stroke { stroke: #FAC775; }
+        .q-amber-title  { fill:   #FAEEDA; }
+        .q-amber-sub    { fill:   #FAC775; }
+
+        .q-teal-fill    { fill:   #085041; }
+        .q-teal-stroke  { stroke: #9FE1CB; }
+        .q-teal-title   { fill:   #E1F5EE; }
+        .q-teal-sub     { fill:   #9FE1CB; }
+
+        .q-gray-fill    { fill:   #2C2C2A; }
+        .q-gray-stroke  { stroke: #B4B2A9; }
+        .q-gray-title   { fill:   #D3D1C7; }
+        .q-gray-sub     { fill:   #B4B2A9; }
+
+        .q-blue-fill    { fill:   #0C447C; }
+        .q-blue-stroke  { stroke: #B5D4F4; }
+        .q-blue-title   { fill:   #E6F1FB; }
+        .q-blue-sub     { fill:   #B5D4F4; }
+
+        .axis        { stroke: #B4B2A9; }
+        .axis-label, .caption { fill: #B4B2A9; }
+      }
+
+      /* ── Dark mode via .dark class (인라인 SVG 대응) ── */
+      .dark .q-amber-fill   { fill:   #633806; }
+      .dark .q-amber-stroke { stroke: #FAC775; }
+      .dark .q-amber-title  { fill:   #FAEEDA; }
+      .dark .q-amber-sub    { fill:   #FAC775; }
+
+      .dark .q-teal-fill    { fill:   #085041; }
+      .dark .q-teal-stroke  { stroke: #9FE1CB; }
+      .dark .q-teal-title   { fill:   #E1F5EE; }
+      .dark .q-teal-sub     { fill:   #9FE1CB; }
+
+      .dark .q-gray-fill    { fill:   #2C2C2A; }
+      .dark .q-gray-stroke  { stroke: #B4B2A9; }
+      .dark .q-gray-title   { fill:   #D3D1C7; }
+      .dark .q-gray-sub     { fill:   #B4B2A9; }
+
+      .dark .q-blue-fill    { fill:   #0C447C; }
+      .dark .q-blue-stroke  { stroke: #B5D4F4; }
+      .dark .q-blue-title   { fill:   #E6F1FB; }
+      .dark .q-blue-sub     { fill:   #B5D4F4; }
+
+      .dark .axis        { stroke: #B4B2A9; }
+      .dark .axis-label, .dark .caption { fill: #B4B2A9; }
+    ]]></style>
+  </defs>
+
+  <!-- ============ Top: Agent band ============ -->
+  <rect class="q-gray-fill q-gray-stroke" x="40" y="20" width="640" height="42"
+        rx="4" stroke-width="1"/>
+  <text class="q-gray-title" x="360" y="46" text-anchor="middle"
+        font-size="14" font-weight="500">Agent</text>
+
+  <!-- arrows down to each tool -->
+  <line class="axis" x1="160" y1="68" x2="160" y2="88"
+        stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line class="axis" x1="360" y1="68" x2="360" y2="88"
+        stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line class="axis" x1="560" y1="68" x2="560" y2="88"
+        stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ============ Column titles ============ -->
+  <text class="q-teal-title" x="160" y="110" text-anchor="middle"
+        font-size="14" font-weight="500">clangd-query</text>
+  <text class="caption" x="160" y="128" text-anchor="middle"
+        font-size="11" font-style="italic">얇은 layer</text>
+
+  <text class="q-blue-title" x="360" y="110" text-anchor="middle"
+        font-size="14" font-weight="500">Serena</text>
+  <text class="caption" x="360" y="128" text-anchor="middle"
+        font-size="11" font-style="italic">두꺼운 layer · 세션/memory</text>
+
+  <text class="q-amber-title" x="560" y="110" text-anchor="middle"
+        font-size="14" font-weight="500">agent-lsp</text>
+  <text class="caption" x="560" y="128" text-anchor="middle"
+        font-size="11" font-style="italic">두꺼운 layer · 안전망</text>
+
+  <!-- ============ Column dividers ============ -->
+  <line class="axis" x1="260" y1="146" x2="260" y2="416"
+        stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+  <line class="axis" x1="460" y1="146" x2="460" y2="416"
+        stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+
+  <!-- ============ Column 1: clangd-query (얇음, 한 층만) ============ -->
+  <rect class="q-teal-fill q-teal-stroke" x="70" y="350" width="180" height="66"
+        rx="4" stroke-width="1"/>
+  <text class="q-teal-title" x="160" y="376" text-anchor="middle"
+        font-size="13" font-weight="500">daemon 캐시</text>
+  <text class="q-teal-sub" x="160" y="396" text-anchor="middle" font-size="11">+ CLI 인터페이스</text>
+
+  <!-- ============ Column 2: Serena (세 층) ============ -->
+  <rect class="q-blue-fill q-blue-stroke" x="270" y="160" width="180" height="40"
+        rx="4" stroke-width="1"/>
+  <text class="q-blue-title" x="360" y="184" text-anchor="middle"
+        font-size="12">context mode</text>
+
+  <rect class="q-blue-fill q-blue-stroke" x="270" y="208" width="180" height="60"
+        rx="4" stroke-width="1"/>
+  <text class="q-blue-title" x="360" y="232" text-anchor="middle"
+        font-size="13" font-weight="500">memory system</text>
+  <text class="q-blue-sub" x="360" y="252" text-anchor="middle" font-size="11">세션 영속화</text>
+
+  <rect class="q-blue-fill q-blue-stroke" x="270" y="276" width="180" height="140"
+        rx="4" stroke-width="1"/>
+  <text class="q-blue-title" x="360" y="300" text-anchor="middle"
+        font-size="13" font-weight="500">심볼 단위 도구 추상화</text>
+  <text class="q-blue-sub" x="360" y="332" text-anchor="middle" font-size="11">find_symbol</text>
+  <text class="q-blue-sub" x="360" y="354" text-anchor="middle" font-size="11">find_referencing_symbols</text>
+  <text class="q-blue-sub" x="360" y="376" text-anchor="middle" font-size="11">replace_symbol_body</text>
+
+  <!-- ============ Column 3: agent-lsp (네 층) ============ -->
+  <rect class="q-amber-fill q-amber-stroke" x="470" y="160" width="180" height="40"
+        rx="4" stroke-width="1"/>
+  <text class="q-amber-title" x="560" y="184" text-anchor="middle"
+        font-size="12">phase enforcement</text>
+
+  <rect class="q-amber-fill q-amber-stroke" x="470" y="208" width="180" height="40"
+        rx="4" stroke-width="1"/>
+  <text class="q-amber-title" x="560" y="232" text-anchor="middle"
+        font-size="12">blast radius 분석</text>
+
+  <rect class="q-amber-fill q-amber-stroke" x="470" y="256" width="180" height="60"
+        rx="4" stroke-width="1"/>
+  <text class="q-amber-title" x="560" y="280" text-anchor="middle"
+        font-size="13" font-weight="500">speculative execution</text>
+  <text class="q-amber-sub" x="560" y="300" text-anchor="middle" font-size="11">preview, simulate</text>
+
+  <rect class="q-amber-fill q-amber-stroke" x="470" y="324" width="180" height="92"
+        rx="4" stroke-width="1"/>
+  <text class="q-amber-title" x="560" y="352" text-anchor="middle"
+        font-size="13" font-weight="500">심볼 단위 도구 추상화</text>
+  <text class="q-amber-sub" x="560" y="382" text-anchor="middle" font-size="11">65+ tools, 24 workflows</text>
+
+  <!-- ============ Bottom: clangd base ============ -->
+  <rect class="q-gray-fill q-gray-stroke" x="40" y="430" width="640" height="38"
+        rx="4" stroke-width="1"/>
+  <text class="q-gray-title" x="360" y="454" text-anchor="middle"
+        font-size="13" font-weight="500">clangd · compile_commands.json (C++ backend, 공통)</text>
+</svg>
