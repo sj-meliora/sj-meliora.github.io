@@ -52,7 +52,7 @@
   .q-blue-title { fill: #E6F1FB; }
   .q-blue-sub { fill: #B5D4F4; }
 
-  .dot-amber, .label-amber { fill: #F5C4B3; }
+  .dot-amber, .label-amber { fill: #FAC775; }
   .dot-teal, .label-teal { fill: #9FE1CB; }
   .dot-blue, .label-blue { fill: #B5D4F4; }
 
@@ -81,7 +81,7 @@
 .dark .q-blue-title { fill: #E6F1FB; }
 .dark .q-blue-sub { fill: #B5D4F4; }
 
-.dark .dot-amber, .dark .label-amber { fill: #F5C4B3; }
+.dark .dot-amber, .dark .label-amber { fill: #FAC775; }
 .dark .dot-teal, .dark .label-teal { fill: #9FE1CB; }
 .dark .dot-blue, .dark .label-blue { fill: #B5D4F4; }
 
